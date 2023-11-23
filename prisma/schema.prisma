@@ -1,0 +1,202 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model Profile {
+  id       String  @id @default(uuid())
+  userId   String  @unique
+  name     String
+  imageUrl String  @db.Text
+  email    String? @unique
+  role     Role    @default(USER)
+
+  ownedWorkspaces  Workspace[]
+  workspaceMembers WorkspaceMember[]
+  ownedProjects    Project[]
+  projectMembers   ProjectMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Workspace {
+  id         String @id @default(uuid())
+  name       String
+  slug       String @unique
+  imageUrl   String @db.Text
+  inviteCode String @db.Text
+
+  ownerId String
+  owner   Profile @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  members  WorkspaceMember[]
+  projects Project[]
+  labels   Label[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([ownerId])
+}
+
+enum WorkspaceMemberRole {
+  OWNER
+  LEAD
+  MEMBER
+  VIEWER
+}
+
+model WorkspaceMember {
+  id   String              @id @default(uuid())
+  role WorkspaceMemberRole @default(MEMBER)
+
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+  @@index([workspaceId])
+}
+
+model Project {
+  id    String @id @default(uuid())
+  name  String
+  slug  String
+  code  String
+  color String
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  ownerId String
+  owner   Profile @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  members    ProjectMember[]
+  milestones Milestone[]
+  tasks      Task[]
+  taskStates TaskState[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, workspaceId, code])
+  @@index([workspaceId])
+  @@index([ownerId])
+}
+
+enum ProjectMemberRole {
+  OWNER
+  LEAD
+  MEMBER
+  VIEWER
+}
+
+model ProjectMember {
+  id   String            @id @default(uuid())
+  role ProjectMemberRole @default(MEMBER)
+
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  projectPermissions String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+  @@index([projectId])
+}
+
+model Milestone {
+  id   String @id @default(uuid())
+  name String
+  slug String
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  tasks Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+}
+
+model Task {
+  id          String  @id @default(uuid())
+  number      Int     @default(autoincrement())
+  name        String
+  description String?
+  tags        Label[]
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  milestone   Milestone? @relation(fields: [milestoneId], references: [id])
+  milestoneId String?
+
+  stateId String
+  state   TaskState @relation(fields: [stateId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([milestoneId])
+  @@index([projectId])
+  @@index([number])
+  @@index([stateId])
+}
+
+model TaskState {
+  id   String @id @default(uuid())
+  name String
+  icon String
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  tasks Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, projectId])
+  @@index([projectId])
+}
+
+model Label {
+  id   String @id @default(uuid())
+  name String
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  task   Task[]
+  taskId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, workspaceId])
+  @@index([workspaceId])
+}
