@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { redirect } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,12 +11,13 @@ import { TCreateWorkspaceSchema } from "@/actions/create-workspace/types";
 
 import { ROUTES } from "@/lib/routes";
 import { slugify } from "@/lib/utils";
+import { WorkspaceData } from ".";
 
-type Step = "BASIC_INFO" | "ADD_MEMBERS";
+interface Props {
+  setWorkspaceData: Dispatch<SetStateAction<WorkspaceData | null>>;
+}
 
-export default function CreateWorkspaceForm() {
-  const [step, setStep] = useState<Step>("BASIC_INFO");
-
+export default function Form({ setWorkspaceData }: Props) {
   const {
     register,
     handleSubmit,
@@ -36,7 +37,10 @@ export default function CreateWorkspaceForm() {
     const result = await createWorkspace(data);
 
     if (result.success) {
-      setStep("ADD_MEMBERS");
+      setWorkspaceData({
+        inviteCode: result.data.inviteCode,
+        workspaceSlug: result.data.slug,
+      });
       return;
     }
 
@@ -85,46 +89,50 @@ export default function CreateWorkspaceForm() {
 
   return (
     <div>
-      {step === "BASIC_INFO" && (
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-2">
-          <label htmlFor="name">Workspace name</label>
+      <h1 className="text-center">Create a new workspace</h1>
+      <p className="text-center">
+        Workspaces are shared environments where teams can work on projects and
+        tasks.
+      </p>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-2">
+        <label htmlFor="name">Workspace name</label>
+        <input
+          {...register("name")}
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Workspace name"
+          className="text-black"
+        />
+        {errors.name && (
+          <label htmlFor="name" className="text-sm text-red-400">
+            {errors.name?.message}
+          </label>
+        )}
+
+        <label htmlFor="slug">Workspace URL</label>
+        <div>
+          <span>superfluid.app/</span>
           <input
-            {...register("name")}
+            {...register("slug")}
             type="text"
-            name="name"
-            id="name"
-            placeholder="Workspace name"
+            name="slug"
+            id="slug"
+            placeholder="Workspace URL"
             className="text-black"
           />
-          {errors.name && (
-            <label htmlFor="name" className="text-sm text-red-400">
-              {errors.name?.message}
-            </label>
-          )}
+        </div>
+        {errors.slug && (
+          <label htmlFor="slug" className="text-sm text-red-400">
+            {errors.slug.message}
+          </label>
+        )}
 
-          <label htmlFor="slug">Workspace URL</label>
-          <div>
-            <span>superfluid.app/</span>
-            <input
-              {...register("slug")}
-              type="text"
-              name="slug"
-              id="slug"
-              placeholder="Workspace URL"
-              className="text-black"
-            />
-          </div>
-          {errors.slug && (
-            <label htmlFor="slug" className="text-sm text-red-400">
-              {errors.slug.message}
-            </label>
-          )}
-
-          <button type="submit" className="p-2 border">
-            Create workspace
-          </button>
-        </form>
-      )}
+        <button type="submit" className="p-2 border">
+          Create workspace
+        </button>
+      </form>
     </div>
   );
 }

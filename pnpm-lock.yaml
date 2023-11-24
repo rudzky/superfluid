@@ -14,6 +14,9 @@ dependencies:
   '@prisma/client':
     specifier: ^5.6.0
     version: 5.6.0(prisma@5.6.0)
+  '@uidotdev/usehooks':
+    specifier: ^2.4.1
+    version: 2.4.1(react-dom@18.0.0)(react@18.0.0)
   next:
     specifier: 14.0.3
     version: 14.0.3(react-dom@18.0.0)(react@18.0.0)
@@ -26,9 +29,15 @@ dependencies:
   react-hook-form:
     specifier: ^7.48.2
     version: 7.48.2(react@18.0.0)
+  remixicon:
+    specifier: ^3.5.0
+    version: 3.5.0
   slugify:
     specifier: ^1.6.6
     version: 1.6.6
+  sonner:
+    specifier: ^1.2.3
+    version: 1.2.3(react-dom@18.0.0)(react@18.0.0)
   uuid:
     specifier: ^9.0.1
     version: 9.0.1
@@ -607,6 +616,17 @@ packages:
       '@typescript-eslint/types': 6.12.0
       eslint-visitor-keys: 3.4.3
     dev: true
+
+  /@uidotdev/usehooks@2.4.1(react-dom@18.0.0)(react@18.0.0):
+    resolution: {integrity: sha512-1I+RwWyS+kdv3Mv0Vmc+p0dPYH0DTRAo04HLyXReYBL9AeseDWUJyi4THuksBJcu9F0Pih69Ak150VDnqbVnXg==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+    dependencies:
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
+    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.11.2):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2554,6 +2574,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /remixicon@3.5.0:
+    resolution: {integrity: sha512-wNzWGKf4frb3tEmgvP5shry0n1OdTjjEk9RHLuRuAhfA50bvEdpKH1XWNUYrHUSjAQQkkdyIm+lf4mOuysIKTQ==}
+    dev: false
+
   /resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
@@ -2707,6 +2731,16 @@ packages:
       map-obj: 4.3.0
       snake-case: 3.0.4
       type-fest: 2.19.0
+    dev: false
+
+  /sonner@1.2.3(react-dom@18.0.0)(react@18.0.0):
+    resolution: {integrity: sha512-LMr155izOFA8hudzuUVQT0H93VqmcF9ODP475YjjC/4INESYWN1/ioC5SYRG20jmDmwuQDR8ugP7y6ELghT6JQ==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
     dev: false
 
   /source-map-js@1.0.2:
