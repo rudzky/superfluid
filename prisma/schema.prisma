@@ -21,13 +21,18 @@ model Profile {
   email    String? @unique
   role     Role    @default(USER)
 
-  ownedWorkspaces  Workspace[]
+  ownedWorkspaces  Workspace[]       @relation("workspaceOwner")
   workspaceMembers WorkspaceMember[]
   ownedProjects    Project[]
   projectMembers   ProjectMember[]
 
+  recentUsedWorkspaceSlug String?
+  recentUsedWorkspace     Workspace? @relation("recentWorkspace", fields: [recentUsedWorkspaceSlug], references: [slug], onDelete: NoAction, onUpdate: NoAction)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([recentUsedWorkspaceSlug])
 }
 
 model Workspace {
@@ -38,11 +43,13 @@ model Workspace {
   inviteCode String @unique
 
   ownerId String
-  owner   Profile @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner   Profile @relation("workspaceOwner", fields: [ownerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   members  WorkspaceMember[]
   projects Project[]
   labels   Label[]
+
+  recentlyUsedBy Profile[] @relation("recentWorkspace")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

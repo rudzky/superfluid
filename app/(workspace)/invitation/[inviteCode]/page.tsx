@@ -1,8 +1,9 @@
-import { db } from "@/lib/db";
-import { initialProfile } from "@/lib/initialProfile";
-import { ROUTES } from "@/lib/routes";
-import { redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { redirectToSignIn } from "@clerk/nextjs";
+
+import { db } from "@/lib/db";
+import { ROUTES } from "@/lib/routes";
+import { currentProfile } from "@/lib/currentProfile";
 
 interface PageProps {
   params: {
@@ -11,7 +12,7 @@ interface PageProps {
 }
 
 export default async function InviteCodePage({ params }: PageProps) {
-  const profile = await initialProfile();
+  const profile = await currentProfile();
 
   if (!profile) {
     return redirectToSignIn();

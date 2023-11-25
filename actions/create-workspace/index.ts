@@ -7,7 +7,7 @@ import { Prisma, Workspace } from "@prisma/client";
 import { CreateWorkspaceSchema } from "@/actions/create-workspace/schema";
 
 import { db } from "@/lib/db";
-import { initialProfile } from "@/lib/initialProfile";
+import { currentProfile } from "@/lib/currentProfile";
 
 import { TCreateWorkspaceSchema } from "./types";
 
@@ -35,7 +35,7 @@ type ActionReturn =
 export async function createWorkspace(
   data: TCreateWorkspaceSchema
 ): Promise<ActionReturn> {
-  const profile = await initialProfile();
+  const profile = await currentProfile();
 
   if (!profile) {
     return {

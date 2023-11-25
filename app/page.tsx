@@ -1,15 +1,21 @@
-import { db } from "@/lib/db";
-import { initialProfile } from "@/lib/initialProfile";
-import { ROUTES } from "@/lib/routes";
 import { redirect } from "next/navigation";
+
+import { db } from "@/lib/db";
+import { ROUTES } from "@/lib/routes";
+import { initialProfile } from "@/lib/initialProfile";
 
 export default async function Home() {
   const user = await initialProfile();
+
+  if (user.recentUsedWorkspaceSlug) {
+    redirect(ROUTES.DASHBOARD(user.recentUsedWorkspaceSlug));
+  }
+
   const userWorkspaces = await db.workspace.findMany({
     where: {
       members: {
         some: {
-          profileId: user.profileId,
+          profileId: user.id,
         },
       },
     },
@@ -19,9 +25,5 @@ export default async function Home() {
     redirect(ROUTES.CREATE_WORKSPACE);
   }
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Hello
-    </main>
-  );
+  redirect(ROUTES.SELECT_WORKSPACE);
 }
