@@ -1,31 +1,63 @@
 "use client";
 
+import { ReactNode } from "react";
 import Image from "next/image";
-import { Control, useController } from "react-hook-form";
-
-import { TCreateWorkspaceSchema } from "@/actions/create-workspace/types";
+import { toast } from "sonner";
+import { UploadFileResponse } from "uploadthing/client";
+import { Control, FieldValues, Path, useController } from "react-hook-form";
 
 import { UploadButton } from "@/lib/uploadthing";
 
 import "@uploadthing/react/styles.css";
-import { toast } from "sonner";
 
-interface Props {
+interface Props<T extends FieldValues> {
   endpoint: "serverImage";
-  control: Control<TCreateWorkspaceSchema>;
+  currentValue?: string;
+  control: Control<T>;
+  field: Path<T>;
+  onSuccess?: (res: UploadFileResponse<null>[]) => void;
 }
 
-export default function FileUpload({ endpoint, control }: Props) {
+interface UploadBlockProps {
+  currentValue?: string;
+  children?: ReactNode;
+}
+
+const UploadBlock = ({ currentValue, children }: UploadBlockProps) => {
+  return (
+    <div className="group w-full h-full grid place-items-center">
+      {currentValue && (
+        <Image
+          src={currentValue}
+          alt="Current Logo"
+          className="w-14 h-14 object-cover"
+          width={56}
+          height={56}
+        />
+      )}
+      <i className="ri-loader-4-line animate-spin"></i>
+      {children}
+    </div>
+  );
+};
+
+export default function FileUpload<T extends FieldValues>({
+  endpoint,
+  currentValue,
+  control,
+  field,
+  onSuccess,
+}: Props<T>) {
   const {
     field: { value, onChange },
   } = useController({
-    name: "imageUrl",
+    name: field,
     control,
   });
 
   return (
     <div className="mt-4">
-      {value ? (
+      {!!value ? (
         <div className="grid gap-1">
           <div className="relative w-14 aspect-square">
             <button
@@ -34,6 +66,7 @@ export default function FileUpload({ endpoint, control }: Props) {
             >
               <i className="ri-close-line"></i>
             </button>
+
             <Image
               fill
               src={value}
@@ -50,6 +83,7 @@ export default function FileUpload({ endpoint, control }: Props) {
           endpoint={endpoint}
           onClientUploadComplete={(res) => {
             onChange(res[0].url);
+            onSuccess?.(res);
           }}
           onUploadError={(error: Error) => {
             console.error(error);
@@ -62,33 +96,38 @@ export default function FileUpload({ endpoint, control }: Props) {
             );
           }}
           content={{
-            button({ ready, isUploading, uploadProgress }) {
+            button({ ready, isUploading }) {
               if (isUploading)
-                return (
-                  <div className="group w-full h-full grid place-items-center">
-                    <i className="ri-loader-4-line animate-spin"></i>
-                  </div>
-                );
+                return <UploadBlock currentValue={currentValue} />;
 
               if (ready)
                 return (
-                  <div className="group w-full h-full grid place-items-center">
-                    <i className="ri-image-add-line"></i>
+                  <UploadBlock currentValue={currentValue}>
                     <div className="grid opacity-0 group-hover:opacity-100 absolute inset-0 bg-black/75 place-items-center transition-opacity">
                       <span className="text-center text-xs leading-tight">
                         Upload image
                       </span>
                     </div>
-                  </div>
+                  </UploadBlock>
                 );
 
               return (
                 <div>
-                  <i className="ri-image-add-line"></i>
+                  {currentValue ? (
+                    <Image
+                      src={currentValue}
+                      alt="Current Logo"
+                      className="w-14 h-14 object-cover"
+                      width={56}
+                      height={56}
+                    />
+                  ) : (
+                    <i className="ri-image-add-line"></i>
+                  )}
                 </div>
               );
             },
-            allowedContent({ ready, fileTypes, isUploading, uploadProgress }) {
+            allowedContent({ ready, isUploading, uploadProgress }) {
               if (!ready) return "Getting ready...";
               if (isUploading) return `Uploading ${uploadProgress}%`;
               return `Pick a logo for your workspace. Recommended size is 256x256px.`;
@@ -97,7 +136,7 @@ export default function FileUpload({ endpoint, control }: Props) {
               return <button className="bg-green-500 p-2">Clear</button>;
             },
           }}
-          className="items-start ut-button:bg-red-500 ut-readying:ut-button:opacity-25 ut-button:w-14 ut-button:h-auto ut-button:aspect-square ut-uploading:animate-pulse ut-clear-btn:w-10 ut-clear-btn:h-10 ut-clear-btn:bg-green-500 ut-allowed-content:text-gray-400 ut-allowed-content:h-auto"
+          className="items-start ut-button:bg-black ut-readying:ut-button:opacity-25 ut-button:w-14 ut-button:h-auto ut-button:aspect-square ut-uploading:animate-pulse ut-clear-btn:w-10 ut-clear-btn:h-10 ut-clear-btn:bg-green-500 ut-allowed-content:text-gray-400 ut-allowed-content:h-auto"
         />
       )}
     </div>

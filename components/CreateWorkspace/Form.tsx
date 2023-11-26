@@ -100,7 +100,7 @@ export default function Form({ setWorkspaceData }: Props) {
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-2">
-        <FileUpload endpoint="serverImage" control={control} />
+        <FileUpload endpoint="serverImage" control={control} field="imageUrl" />
 
         <label htmlFor="name">Workspace name</label>
         <input
