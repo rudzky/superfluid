@@ -51,6 +51,9 @@ model Workspace {
 
   recentlyUsedBy Profile[] @relation("recentWorkspace")
 
+  settingsId String            @unique
+  settings   WorkspaceSettings @relation(fields: [settingsId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -79,6 +82,22 @@ model WorkspaceMember {
 
   @@index([profileId])
   @@index([workspaceId])
+}
+
+enum WorkspacePermission {
+  ALL
+  OWNER
+  LEAD
+  MEMBER
+  VIEWER
+}
+
+model WorkspaceSettings {
+  id String @id @default(uuid())
+
+  createProject WorkspacePermission @default(LEAD)
+
+  workspace Workspace?
 }
 
 model Project {
