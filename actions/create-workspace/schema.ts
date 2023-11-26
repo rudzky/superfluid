@@ -15,6 +15,7 @@ export const WorkspaceNameSchema = z
   );
 
 export const CreateWorkspaceSchema = z.object({
+  imageUrl: z.string().optional(),
   name: WorkspaceNameSchema,
   slug: z
     .string()

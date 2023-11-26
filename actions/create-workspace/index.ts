@@ -55,7 +55,7 @@ export async function createWorkspace(
     };
   }
 
-  const { name, slug } = result.data;
+  const { name, slug, imageUrl } = result.data;
 
   try {
     const response: Workspace = await db.workspace.create({
@@ -63,8 +63,7 @@ export async function createWorkspace(
         name,
         slug,
         inviteCode: uuidv4(),
-        // TODO: Handle workspace image
-        imageUrl: "",
+        imageUrl: imageUrl ?? "",
         owner: {
           connect: {
             id: profile.id,

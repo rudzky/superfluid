@@ -5,12 +5,15 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { redirect } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import FileUpload from "@/components/Fileupload";
+
 import { createWorkspace } from "@/actions/create-workspace";
 import { CreateWorkspaceSchema } from "@/actions/create-workspace/schema";
 import { TCreateWorkspaceSchema } from "@/actions/create-workspace/types";
 
 import { ROUTES } from "@/lib/routes";
 import { slugify } from "@/lib/utils";
+
 import { WorkspaceData } from ".";
 
 interface Props {
@@ -23,6 +26,7 @@ export default function Form({ setWorkspaceData }: Props) {
     handleSubmit,
     setValue,
     setError,
+    control,
     trigger,
     watch,
     formState: { errors, touchedFields, dirtyFields },
@@ -96,6 +100,8 @@ export default function Form({ setWorkspaceData }: Props) {
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-2">
+        <FileUpload endpoint="serverImage" control={control} />
+
         <label htmlFor="name">Workspace name</label>
         <input
           {...register("name")}

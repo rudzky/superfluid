@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { UserButton, redirectToSignIn } from "@clerk/nextjs";
 
@@ -47,6 +48,22 @@ export default async function Dashboard({ params }: PageProps) {
   return (
     <div>
       <UserButton />
+      {dashboardData.imageUrl ? (
+        <Image
+          width={24}
+          height={24}
+          src={dashboardData.imageUrl}
+          alt="Upload"
+          className="w-6 h-6 object-cover rounded-md"
+        />
+      ) : (
+        <div className="">
+          {dashboardData.name
+            .split(" ")
+            .slice(0, 2)
+            .map(([letter]) => letter)}
+        </div>
+      )}
       Dashboard {dashboardData?.name}
       <p>/invitation/{dashboardData?.inviteCode}</p>
     </div>
