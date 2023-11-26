@@ -1,9 +1,7 @@
-import React from "react";
 import { redirect } from "next/navigation";
 import { redirectToSignIn } from "@clerk/nextjs";
 
-import ImageSettings from "@/components/EditWorkspace/ImageSettings";
-import RolePermissionsSettings from "@/components/EditWorkspace/RolePermissionsSettings";
+import CreateProject from "@/components/CreateProject";
 
 import { db } from "@/lib/db";
 import { ROUTES } from "@/lib/routes";
@@ -13,7 +11,7 @@ interface PageProps {
   params: { id: string };
 }
 
-export default async function DashboardSettingsPage({ params }: PageProps) {
+export default async function CreateProjectPage({ params }: PageProps) {
   const profile = await currentProfile();
 
   if (!profile) {
@@ -28,9 +26,6 @@ export default async function DashboardSettingsPage({ params }: PageProps) {
           profileId: profile.id,
         },
       },
-    },
-    include: {
-      settings: true,
     },
   });
 
@@ -52,18 +47,8 @@ export default async function DashboardSettingsPage({ params }: PageProps) {
   });
 
   return (
-    <div>
-      <h1>Settings</h1>
-
-      <ImageSettings
-        workspaceSlug={dashboardData.slug}
-        imageUrl={dashboardData.imageUrl}
-      />
-
-      <RolePermissionsSettings
-        workspaceSlug={dashboardData.slug}
-        settings={dashboardData.settings}
-      />
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <CreateProject slug={dashboardData.slug} />
+    </main>
   );
 }

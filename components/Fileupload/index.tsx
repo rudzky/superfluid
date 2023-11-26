@@ -35,7 +35,6 @@ const UploadBlock = ({ currentValue, children }: UploadBlockProps) => {
           height={56}
         />
       )}
-      <i className="ri-loader-4-line animate-spin"></i>
       {children}
     </div>
   );
@@ -98,11 +97,16 @@ export default function FileUpload<T extends FieldValues>({
           content={{
             button({ ready, isUploading }) {
               if (isUploading)
-                return <UploadBlock currentValue={currentValue} />;
+                return (
+                  <UploadBlock currentValue={currentValue}>
+                    <i className="ri-loader-4-line animate-spin"></i>
+                  </UploadBlock>
+                );
 
               if (ready)
                 return (
                   <UploadBlock currentValue={currentValue}>
+                    <i className="ri-image-add-line"></i>
                     <div className="grid opacity-0 group-hover:opacity-100 absolute inset-0 bg-black/75 place-items-center transition-opacity">
                       <span className="text-center text-xs leading-tight">
                         Upload image
@@ -136,7 +140,7 @@ export default function FileUpload<T extends FieldValues>({
               return <button className="bg-green-500 p-2">Clear</button>;
             },
           }}
-          className="items-start ut-button:bg-black ut-readying:ut-button:opacity-25 ut-button:w-14 ut-button:h-auto ut-button:aspect-square ut-uploading:animate-pulse ut-clear-btn:w-10 ut-clear-btn:h-10 ut-clear-btn:bg-green-500 ut-allowed-content:text-gray-400 ut-allowed-content:h-auto"
+          className="items-start ut-button:bg-white/25 ut-readying:ut-button:opacity-25 ut-button:w-14 ut-button:h-auto ut-button:aspect-square ut-uploading:animate-pulse ut-clear-btn:w-10 ut-clear-btn:h-10 ut-clear-btn:bg-green-500 ut-allowed-content:text-gray-400 ut-allowed-content:h-auto"
         />
       )}
     </div>

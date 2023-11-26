@@ -6,3 +6,11 @@ export const slugify = (str: string) =>
     locale: "en",
     trim: true,
   });
+
+export const WORKSPACE_PERMISSION_ROLES = [
+  { key: "ALL", text: "All" },
+  { key: "OWNER", text: "Owner" },
+  { key: "LEAD", text: "Lead" },
+  { key: "MEMBER", text: "Member" },
+  { key: "VIEWER", text: "Viewer" },
+];

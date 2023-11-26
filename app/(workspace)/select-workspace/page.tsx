@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { redirectToSignIn } from "@clerk/nextjs";
 
 import { db } from "@/lib/db";
@@ -21,6 +22,10 @@ export default async function SelectWorkspacePage() {
       },
     },
   });
+
+  if (!userWorkspaces.length) {
+    redirect(ROUTES.CREATE_WORKSPACE);
+  }
 
   return (
     <div>

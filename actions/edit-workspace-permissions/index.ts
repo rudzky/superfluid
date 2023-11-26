@@ -1,15 +1,15 @@
 "use server";
 
-import { v4 as uuidv4 } from "uuid";
+import { revalidatePath } from "next/cache";
 import { typeToFlattenedError } from "zod";
 import { Prisma, Workspace } from "@prisma/client";
 
-import { CreateWorkspaceSchema } from "@/actions/create-workspace/schema";
-
 import { db } from "@/lib/db";
+import { ROUTES } from "@/lib/routes";
 import { currentProfile } from "@/lib/currentProfile";
 
-import { TCreateWorkspaceSchema } from "./types";
+import { TEditWorkspacePermissionsSchema } from "./types";
+import { EditWorkspacePermissionsSchema } from "./schema";
 
 type ActionReturn =
   | {
@@ -19,7 +19,7 @@ type ActionReturn =
   | {
       success: false;
       errorType: "VALIDATION";
-      error: typeToFlattenedError<TCreateWorkspaceSchema, string>;
+      error: typeToFlattenedError<TEditWorkspacePermissionsSchema, string>;
     }
   | {
       success: false;
@@ -32,8 +32,9 @@ type ActionReturn =
       error: unknown;
     };
 
-export async function createWorkspace(
-  data: TCreateWorkspaceSchema
+export async function editWorkspacePermissions(
+  slug: string,
+  data: TEditWorkspacePermissionsSchema
 ): Promise<ActionReturn> {
   const profile = await currentProfile();
 
@@ -45,7 +46,7 @@ export async function createWorkspace(
     };
   }
 
-  const result = CreateWorkspaceSchema.safeParse(data);
+  const result = EditWorkspacePermissionsSchema.safeParse(data);
 
   if (!result.success) {
     return {
@@ -55,45 +56,32 @@ export async function createWorkspace(
     };
   }
 
-  const { name, slug, imageUrl } = result.data;
+  const { createProject } = result.data;
 
   try {
-    const response: Workspace = await db.workspace.create({
-      data: {
-        name,
+    const response: Workspace = await db.workspace.update({
+      where: {
         slug,
-        inviteCode: uuidv4(),
-        imageUrl: imageUrl ?? "",
-        owner: {
-          connect: {
-            id: profile.id,
-          },
-        },
-        members: {
-          create: {
-            profileId: profile.id,
-            role: "OWNER",
-          },
-        },
+      },
+      data: {
         settings: {
-          create: {
-            createProject: "LEAD",
+          update: {
+            createProject,
           },
         },
       },
     });
 
+    revalidatePath(ROUTES.DASHBOARD_SETTINGS(slug));
+
     return { success: true, data: response };
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2002") {
-        return {
-          success: false,
-          errorType: "DATABASE",
-          error:
-            "This workspace URL is already reserved. Please select another one.",
-        };
-      }
+      return {
+        success: false,
+        errorType: "DATABASE",
+        error: error.message,
+      };
     }
     return { success: false, errorType: "OTHER", error };
   }
