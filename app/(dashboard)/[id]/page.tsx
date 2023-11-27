@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { UserButton, redirectToSignIn } from "@clerk/nextjs";
@@ -65,7 +66,21 @@ export default async function Dashboard({ params }: PageProps) {
         </div>
       )}
       Dashboard {dashboardData?.name}
-      <p>/invitation/{dashboardData?.inviteCode}</p>
+      <p contentEditable>/invitation/{dashboardData?.inviteCode}</p>
+      <Link
+        href={ROUTES.CREATE_PROJECT(dashboardData.slug)}
+        className="border rounded-lg p-2 mt-2"
+      >
+        <span>Create new project</span>
+        <i className="ri-add-line"></i>
+      </Link>
+      <Link
+        href={ROUTES.DASHBOARD_SETTINGS(dashboardData.slug)}
+        className="border rounded-lg p-2 mt-2"
+      >
+        <span>Settings</span>
+        <i className="ri-settings-3-line"></i>
+      </Link>
     </div>
   );
 }

@@ -5,4 +5,5 @@ export const ROUTES = {
   SELECT_WORKSPACE: "/select-workspace",
   DASHBOARD: (workspaceSlug: string) => `/${workspaceSlug}`,
   DASHBOARD_SETTINGS: (workspaceSlug: string) => `/${workspaceSlug}/settings`,
+  CREATE_PROJECT: (workspaceSlug: string) => `/${workspaceSlug}/create-project`,
 };

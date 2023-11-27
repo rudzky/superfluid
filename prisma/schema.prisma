@@ -9,8 +9,8 @@ datasource db {
 }
 
 enum Role {
-  ADMIN
-  USER
+  ADMIN @map(name: "ADMIN")
+  USER  @map(name: "USER")
 }
 
 model Profile {
@@ -61,10 +61,10 @@ model Workspace {
 }
 
 enum WorkspaceMemberRole {
-  OWNER
-  LEAD
-  MEMBER
-  VIEWER
+  OWNER  @map(name: "OWNER")
+  LEAD   @map(name: "LEAD")
+  MEMBER @map(name: "MEMBER")
+  VIEWER @map(name: "VIEWER")
 }
 
 model WorkspaceMember {
@@ -85,11 +85,11 @@ model WorkspaceMember {
 }
 
 enum WorkspacePermission {
-  ALL
-  OWNER
-  LEAD
-  MEMBER
-  VIEWER
+  ALL    @map(name: "ALL")
+  OWNER  @map(name: "OWNER")
+  LEAD   @map(name: "LEAD")
+  MEMBER @map(name: "MEMBER")
+  VIEWER @map(name: "VIEWER")
 }
 
 model WorkspaceSettings {
@@ -100,12 +100,23 @@ model WorkspaceSettings {
   workspace Workspace?
 }
 
+enum ProjectStatus {
+  BACKLOG     @map(name: "BACKLOG")
+  PLANNED     @map(name: "PLANNED")
+  IN_PROGRESS @map(name: "IN_PROGRESS")
+  PAUSED      @map(name: "PAUSED")
+  COMPLETED   @map(name: "COMPLETED")
+  CANCELED    @map(name: "CANCELED")
+}
+
 model Project {
-  id    String @id @default(uuid())
-  name  String
-  slug  String
-  code  String
-  color String
+  id         String        @id @default(uuid())
+  name       String
+  slug       String
+  code       String
+  imageUrl   String        @db.Text
+  inviteCode String        @unique
+  status     ProjectStatus @default(BACKLOG)
 
   workspaceId String
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
@@ -127,10 +138,10 @@ model Project {
 }
 
 enum ProjectMemberRole {
-  OWNER
-  LEAD
-  MEMBER
-  VIEWER
+  OWNER  @map(name: "OWNER")
+  LEAD   @map(name: "LEAD")
+  MEMBER @map(name: "MEMBER")
+  VIEWER @map(name: "VIEWER")
 }
 
 model ProjectMember {

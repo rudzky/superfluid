@@ -8,6 +8,7 @@ import RolePermissionsSettings from "@/components/EditWorkspace/RolePermissionsS
 import { db } from "@/lib/db";
 import { ROUTES } from "@/lib/routes";
 import { currentProfile } from "@/lib/currentProfile";
+import { WorkspaceSettingsAccessError } from "@/lib/exceptions";
 
 interface PageProps {
   params: { id: string };
@@ -20,7 +21,7 @@ export default async function DashboardSettingsPage({ params }: PageProps) {
     return redirectToSignIn();
   }
 
-  const dashboardData = await db.workspace.findUnique({
+  const workspace = await db.workspace.findUnique({
     where: {
       slug: params.id,
       members: {
@@ -29,13 +30,64 @@ export default async function DashboardSettingsPage({ params }: PageProps) {
         },
       },
     },
-    include: {
-      settings: true,
-    },
   });
 
-  if (!dashboardData) {
+  if (!workspace) {
     return redirect(ROUTES.SELECT_WORKSPACE);
+  }
+
+  let workspaceUserCanEdit;
+
+  if (profile.role === "ADMIN") {
+    workspaceUserCanEdit = await db.workspace.findUnique({
+      where: {
+        slug: params.id,
+      },
+      include: {
+        members: {
+          select: {
+            id: true,
+            role: true,
+            profile: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+        settings: true,
+      },
+    });
+  } else {
+    workspaceUserCanEdit = await db.workspace.findUnique({
+      where: {
+        slug: params.id,
+        members: {
+          some: {
+            profileId: profile.id,
+            role: "OWNER",
+          },
+        },
+      },
+      include: {
+        members: {
+          select: {
+            id: true,
+            role: true,
+            profile: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+        settings: true,
+      },
+    });
+  }
+
+  if (!workspaceUserCanEdit) {
+    throw new WorkspaceSettingsAccessError();
   }
 
   await db.profile.update({
@@ -45,7 +97,7 @@ export default async function DashboardSettingsPage({ params }: PageProps) {
     data: {
       recentUsedWorkspace: {
         connect: {
-          id: dashboardData.id,
+          id: workspace.id,
         },
       },
     },
@@ -56,14 +108,25 @@ export default async function DashboardSettingsPage({ params }: PageProps) {
       <h1>Settings</h1>
 
       <ImageSettings
-        workspaceSlug={dashboardData.slug}
-        imageUrl={dashboardData.imageUrl}
+        workspaceSlug={workspaceUserCanEdit.slug}
+        imageUrl={workspaceUserCanEdit.imageUrl}
       />
 
       <RolePermissionsSettings
-        workspaceSlug={dashboardData.slug}
-        settings={dashboardData.settings}
+        workspaceSlug={workspaceUserCanEdit.slug}
+        settings={workspaceUserCanEdit.settings}
       />
+
+      <div className="my-4">
+        <h2>Members</h2>
+        <ul>
+          {workspaceUserCanEdit.members.map(({ id, role, profile }) => (
+            <li key={id}>
+              {profile.name} ({role})
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
