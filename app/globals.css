@@ -3,29 +3,126 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* COLORS */
+  /* neutral */
+  --neutral-0: 0 0% 100%;
+  --neutral-100: 210 29% 97%;
+  --neutral-200: 223 14% 90%;
+  --neutral-300: 218 9% 82%;
+  --neutral-400: 220 8% 56%;
+  --neutral-500: 222 11% 36%;
+  --neutral-600: 223 13% 22%;
+  --neutral-700: 226 17% 15%;
+  --neutral-800: 225 21% 11%;
+  --neutral-900: 222 33% 6%;
+
+  /* blue */
+  --blue-darker: 228 64% 24%;
+  --blue-dark: 228 64% 40%;
+  --blue-base: 228 96% 60%;
+  --blue-light: 220 100% 88%;
+  --blue-lighter: 222 100% 96%;
+
+  /* orange */
+  --orange-darker: 24 80% 24%;
+  --orange-dark: 24 90% 40%;
+  --orange-base: 24 88% 56%;
+  --orange-light: 24 100% 88%;
+  --orange-lighter: 25 90% 96%;
+
+  /* yellow */
+  --yellow-darker: 30 72% 24%;
+  --yellow-dark: 37 76% 40%;
+  --yellow-base: 37 87% 60%;
+  --yellow-light: 37 90% 84%;
+  --yellow-lighter: 37 90% 96%;
+
+  /* red */
+  --red-darker: 348 78% 25%;
+  --red-dark: 349 72% 40%;
+  --red-base: 349 78% 49%;
+  --red-light: 349 77% 88%;
+  --red-lighter: 349 80% 96%;
+
+  /* green */
+  --green-darker: 158 63% 24%;
+  --green-dark: 158 56% 40%;
+  --green-base: 158 56% 50%;
+  --green-light: 157 68% 88%;
+  --green-lighter: 158 52% 96%;
+
+  /* purple */
+  --purple-darker: 256 64% 24%;
+  --purple-dark: 256 56% 48%;
+  --purple-base: 256 88% 60%;
+  --purple-light: 248 100% 88%;
+  --purple-lighter: 249 100% 96%;
+
+  /* pink */
+  --pink-darker: 294 76% 24%;
+  --pink-dark: 294 66% 40%;
+  --pink-base: 294 86% 64%;
+  --pink-light: 294 100% 88%;
+  --pink-lighter: 294 100% 96%;
+
+  /* teal */
+  --teal-darker: 204 64% 24%;
+  --teal-dark: 196 70% 40%;
+  --teal-base: 196 80% 56%;
+  --teal-light: 196 100% 88%;
+  --teal-lighter: 195 100% 96%;
+
+  /* PRIMARY */
+  --primary-darker: var(--blue-darker);
+  --primary-dark: var(--blue-dark);
+  --primary-base: var(--blue-base);
+  --primary-light: var(--blue-light);
+  --primary-lighter: var(--blue-lighter);
+
+  /* BG */
+  --bg-strong-900: var(--neutral-900);
+  --bg-surface-700: var(--neutral-700);
+  --bg-soft-200: var(--neutral-200);
+  --bg-weak-100: var(--neutral-100);
+  --bg-white-0: var(--neutral-0);
+
+  /* TEXT */
+  --text-main-900: var(--neutral-900);
+  --text-sub-500: var(--neutral-500);
+  --text-soft-400: var(--neutral-400);
+  --text-disabled-300: var(--neutral-300);
+  --text-white-0: var(--neutral-0);
+
+  /* STROKE */
+  --stroke-strong-900: var(--neutral-900);
+  --stroke-sub-300: var(--neutral-300);
+  --stroke-soft-200: var(--neutral-200);
+  --stroke-disabled-100: var(--neutral-100);
+  --stroke-white-0: var(--neutral-0);
+
+  /* ICON */
+  --icon-strong-900: var(--neutral-900);
+  --icon-sub-500: var(--neutral-500);
+  --icon-soft-400: var(--neutral-400);
+  --icon-disabled-300: var(--neutral-300);
+  --icon-white-0: var(--neutral-0);
+
+  /* STATE COLORS TOKENS */
+  --state-success: var(--green-base);
+  --state-warning: var(--orange-base);
+  --state-error: var(--red-base);
+  --state-information: var(--blue-base);
+  --state-away: var(--yellow-base);
+  --state-feature: var(--purple-base);
+  --state-neutral: var(--neutral-base);
+  --state-verified: var(--teal-base);
 }
 
 i {
   line-height: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: rgb(0, 0, 0);
+  background: white;
 }

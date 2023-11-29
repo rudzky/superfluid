@@ -30,6 +30,7 @@ export default async function SelectWorkspacePage() {
   return (
     <div>
       <h1>Select workspace</h1>
+
       <ul>
         {userWorkspaces.map(({ id, name, slug }) => (
           <li key={id}>
