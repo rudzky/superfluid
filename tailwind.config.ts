@@ -274,6 +274,14 @@ const config: Config = {
         },
       ],
     },
+    boxShadow: {
+      xs: "0 1px 2px 0 rgb(228 229 231 / 24%)",
+      s: "0 2px 4px 0 rgb(28 28 28 / 4%)",
+      m: "0 16px 32px -12px rgb(89 92 94 / 10%)",
+      l: "0 16px 40px -8px rgb(89 92 94 / 16%)",
+      xl: "0 24px 56px -4px rgb(89 92 94 / 16%)",
+      "2xl": "0 40px 96px -8px rgb(89 92 94 / 20%)",
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

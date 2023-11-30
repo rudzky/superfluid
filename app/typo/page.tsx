@@ -3,7 +3,7 @@ import React from "react";
 export default function Typo() {
   return (
     <div>
-      <div className="p-4">
+      <div className="p-4 shadow-xs">
         <h1 className="font-title text-title-h1">
           The quick brown fox jumps over the lazy dog.
         </h1>
@@ -23,7 +23,7 @@ export default function Typo() {
           The quick brown fox jumps over the lazy dog.
         </h6>
       </div>
-      <div className="p-4 grid">
+      <div className="p-4 grid shadow-s">
         <span className="text-label-xl">
           The quick brown fox jumps over the lazy dog.
         </span>
@@ -40,7 +40,7 @@ export default function Typo() {
           The quick brown fox jumps over the lazy dog.
         </span>
       </div>
-      <div className="p-4 grid">
+      <div className="p-4 grid shadow-m">
         <p className="text-paragraph-xl">
           The quick brown fox jumps over the lazy dog.
         </p>
@@ -57,7 +57,7 @@ export default function Typo() {
           The quick brown fox jumps over the lazy dog.
         </p>
       </div>
-      <div className="p-4 grid">
+      <div className="p-4 grid shadow-l">
         <p className="text-subheading-m">
           The quick brown fox jumps over the lazy dog.
         </p>
