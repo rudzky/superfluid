@@ -29,7 +29,7 @@ export default async function SelectWorkspacePage() {
 
   return (
     <div>
-      <h1>Select workspace</h1>
+      <h1 className="font-title text-title-h1">Select workspace</h1>
 
       <ul>
         {userWorkspaces.map(({ id, name, slug }) => (

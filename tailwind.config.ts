@@ -109,6 +109,171 @@ const config: Config = {
         verified: "hsl(var(--state-verified))",
       },
     },
+    fontFamily: {
+      base: ["var(--font-inter)"],
+      title: ["var(--font-inter-display)"],
+    },
+    fontSize: {
+      // TITLES
+      "title-h1": [
+        "3.5rem",
+        {
+          lineHeight: "4rem",
+          letterSpacing: "-0.01em",
+          fontWeight: "500",
+        },
+      ],
+      "title-h2": [
+        "3rem",
+        {
+          lineHeight: "3.5rem",
+          letterSpacing: "-0.01em",
+          fontWeight: "500",
+        },
+      ],
+      "title-h3": [
+        "2.5rem",
+        {
+          lineHeight: "3rem",
+          letterSpacing: "-0.01em",
+          fontWeight: "500",
+        },
+      ],
+      "title-h4": [
+        "2rem",
+        {
+          lineHeight: "2.5rem",
+          fontWeight: "500",
+        },
+      ],
+      "title-h5": [
+        "1.5rem",
+        {
+          lineHeight: "2rem",
+          fontWeight: "500",
+        },
+      ],
+      "title-h6": [
+        "1.25rem",
+        {
+          lineHeight: "1.75rem",
+          fontWeight: "500",
+        },
+      ],
+      // LABELS
+      "label-xl": [
+        "1.5rem",
+        {
+          lineHeight: "2rem",
+          letterSpacing: "-0.015em",
+          fontWeight: "500",
+        },
+      ],
+      "label-l": [
+        "1.125rem",
+        {
+          lineHeight: "1.5rem",
+          letterSpacing: "-0.015em",
+          fontWeight: "500",
+        },
+      ],
+      "label-m": [
+        "1rem",
+        {
+          lineHeight: "1.5rem",
+          letterSpacing: "-0.011em",
+          fontWeight: "500",
+        },
+      ],
+      "label-s": [
+        "0.875rem",
+        {
+          lineHeight: "1.25rem",
+          letterSpacing: "-0.06em",
+          fontWeight: "500",
+        },
+      ],
+      "label-xs": [
+        "0.75rem",
+        {
+          lineHeight: "1rem",
+          fontWeight: "500",
+        },
+      ],
+      // PARAGRAPHS
+      "paragraph-xl": [
+        "1.5rem",
+        {
+          lineHeight: "2rem",
+          letterSpacing: "-0.015",
+          fontWeight: "400",
+        },
+      ],
+      "paragraph-l": [
+        "1.125rem",
+        {
+          lineHeight: "1.5rem",
+          letterSpacing: "-0.015",
+          fontWeight: "400",
+        },
+      ],
+      "paragraph-m": [
+        "1rem",
+        {
+          lineHeight: "1.5rem",
+          letterSpacing: "-0.011",
+          fontWeight: "400",
+        },
+      ],
+      "paragraph-s": [
+        "0.875rem",
+        {
+          lineHeight: "1.25rem",
+          letterSpacing: "-0.06",
+          fontWeight: "400",
+        },
+      ],
+      "paragraph-xs": [
+        "0.75rem",
+        {
+          lineHeight: "1rem",
+          fontWeight: "400",
+        },
+      ],
+      // SUBHEADINGS
+      "subheading-m": [
+        "1rem",
+        {
+          lineHeight: "1.5rem",
+          letterSpacing: "-0.06",
+          fontWeight: "500",
+        },
+      ],
+      "subheading-s": [
+        "0.875rem",
+        {
+          lineHeight: "1.25rem",
+          letterSpacing: "-0.06",
+          fontWeight: "500",
+        },
+      ],
+      "subheading-xs": [
+        "0.75rem",
+        {
+          lineHeight: "1rem",
+          letterSpacing: "-0.04",
+          fontWeight: "500",
+        },
+      ],
+      "subheading-2xs": [
+        "0.6875rem",
+        {
+          lineHeight: "0.75rem",
+          letterSpacing: "-0.02",
+          fontWeight: "500",
+        },
+      ],
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 
 import "./globals.css";
 import "remixicon/fonts/remixicon.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const interDisplay = localFont({
+  src: "../fonts/InterDisplay-Medium.woff2",
+  display: "swap",
+  variable: "--font-inter-display",
+});
+
+const inter = localFont({
+  src: "../fonts/InterVariable.woff2",
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,8 +30,11 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
+      <html
+        lang="en"
+        className={`${inter.className} ${interDisplay.variable} ${inter.variable}`}
+      >
+        <body>
           {children}
           <Toaster richColors position="bottom-center" />
         </body>
