@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
@@ -12,9 +13,9 @@ const interDisplay = localFont({
   variable: "--font-inter-display",
 });
 
-const inter = localFont({
-  src: "../fonts/InterVariable.woff2",
+const inter = Inter({
   display: "swap",
+  subsets: ["latin"],
   variable: "--font-inter",
 });
 

@@ -9,6 +9,7 @@ const config: Config = {
   ],
   theme: {
     colors: {
+      transparent: "transparent",
       neutral: {
         0: "hsl(var(--neutral-0))",
         100: "hsl(var(--neutral-100))",
@@ -84,20 +85,15 @@ const config: Config = {
         light: "hsl(var(--primary-light))",
         lighter: "hsl(var(--primary-lighter))",
       },
-      bg: {
-        "strong-900": "hsl(var(--bg-strong-900))",
-        "surface-700": "hsl(var(--bg-surface-700))",
-        "soft-200": "hsl(var(--bg-soft-200))",
-        "weak-100": "hsl(var(--bg-weak-100))",
-        "white-0": "hsl(var(--bg-white-0))",
-      },
-      text: {
-        "main-900": "hsl(var(--text-main-900))",
-        "sub-500": "hsl(var(--text-sub-500))",
-        "soft-400": "hsl(var(--text-soft-400))",
-        "disabled-300": "hsl(var(--text-disabled-300))",
-        "white-0": "hsl(var(--text-white-0))",
-      },
+      "white-0": "hsl(var(--bg-white-0))",
+      "weak-100": "hsl(var(--bg-weak-100))",
+      "soft-200": "hsl(var(--bg-soft-200))",
+      "disabled-300": "hsl(var(--text-disabled-300))",
+      "soft-400": "hsl(var(--text-soft-400))",
+      "sub-500": "hsl(var(--text-sub-500))",
+      "surface-700": "hsl(var(--bg-surface-700))",
+      "strong-900": "hsl(var(--bg-strong-900))",
+      "main-900": "hsl(var(--text-main-900))",
       state: {
         success: "hsl(var(--state-success))",
         warning: "hsl(var(--state-warning))",
@@ -119,7 +115,7 @@ const config: Config = {
         "3.5rem",
         {
           lineHeight: "4rem",
-          letterSpacing: "-0.01em",
+          letterSpacing: "-0.001em",
           fontWeight: "500",
         },
       ],
@@ -127,7 +123,7 @@ const config: Config = {
         "3rem",
         {
           lineHeight: "3.5rem",
-          letterSpacing: "-0.01em",
+          letterSpacing: "-0.001em",
           fontWeight: "500",
         },
       ],
@@ -135,7 +131,7 @@ const config: Config = {
         "2.5rem",
         {
           lineHeight: "3rem",
-          letterSpacing: "-0.01em",
+          letterSpacing: "-0.001em",
           fontWeight: "500",
         },
       ],
@@ -165,7 +161,7 @@ const config: Config = {
         "1.5rem",
         {
           lineHeight: "2rem",
-          letterSpacing: "-0.015em",
+          letterSpacing: "-0.0015em",
           fontWeight: "500",
         },
       ],
@@ -173,7 +169,7 @@ const config: Config = {
         "1.125rem",
         {
           lineHeight: "1.5rem",
-          letterSpacing: "-0.015em",
+          letterSpacing: "-0.0015em",
           fontWeight: "500",
         },
       ],
@@ -181,7 +177,7 @@ const config: Config = {
         "1rem",
         {
           lineHeight: "1.5rem",
-          letterSpacing: "-0.011em",
+          letterSpacing: "-0.0011em",
           fontWeight: "500",
         },
       ],
@@ -189,7 +185,7 @@ const config: Config = {
         "0.875rem",
         {
           lineHeight: "1.25rem",
-          letterSpacing: "-0.06em",
+          letterSpacing: "-0.006em",
           fontWeight: "500",
         },
       ],
@@ -205,7 +201,7 @@ const config: Config = {
         "1.5rem",
         {
           lineHeight: "2rem",
-          letterSpacing: "-0.015",
+          letterSpacing: "-0.0015",
           fontWeight: "400",
         },
       ],
@@ -213,7 +209,7 @@ const config: Config = {
         "1.125rem",
         {
           lineHeight: "1.5rem",
-          letterSpacing: "-0.015",
+          letterSpacing: "-0.0015",
           fontWeight: "400",
         },
       ],
@@ -221,7 +217,7 @@ const config: Config = {
         "1rem",
         {
           lineHeight: "1.5rem",
-          letterSpacing: "-0.011",
+          letterSpacing: "-0.0011",
           fontWeight: "400",
         },
       ],
@@ -229,7 +225,7 @@ const config: Config = {
         "0.875rem",
         {
           lineHeight: "1.25rem",
-          letterSpacing: "-0.06",
+          letterSpacing: "-0.006",
           fontWeight: "400",
         },
       ],
@@ -245,7 +241,7 @@ const config: Config = {
         "1rem",
         {
           lineHeight: "1.5rem",
-          letterSpacing: "-0.06",
+          letterSpacing: "-0.006",
           fontWeight: "500",
         },
       ],
@@ -253,7 +249,7 @@ const config: Config = {
         "0.875rem",
         {
           lineHeight: "1.25rem",
-          letterSpacing: "-0.06",
+          letterSpacing: "-0.006",
           fontWeight: "500",
         },
       ],
@@ -261,7 +257,7 @@ const config: Config = {
         "0.75rem",
         {
           lineHeight: "1rem",
-          letterSpacing: "-0.04",
+          letterSpacing: "-0.004",
           fontWeight: "500",
         },
       ],
@@ -269,12 +265,13 @@ const config: Config = {
         "0.6875rem",
         {
           lineHeight: "0.75rem",
-          letterSpacing: "-0.02",
+          letterSpacing: "-0.002",
           fontWeight: "500",
         },
       ],
     },
     boxShadow: {
+      none: "0 0 #0000",
       xs: "0 1px 2px 0 rgb(228 229 231 / 24%)",
       s: "0 2px 4px 0 rgb(28 28 28 / 4%)",
       m: "0 16px 32px -12px rgb(89 92 94 / 10%)",

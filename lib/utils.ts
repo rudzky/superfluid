@@ -1,10 +1,11 @@
 import { WorkspaceMemberRole, WorkspacePermission } from "@prisma/client";
 import createSlug from "slugify";
-import { twMerge } from "tailwind-merge";
 import { ClassValue, clsx } from "clsx";
 
+import { customTwMerge } from "@/lib/twMerge";
+
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return customTwMerge(clsx(inputs));
 }
 
 export const slugify = (str: string) =>
