@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   [
-    "outline-none inline-flex justify-center items-center relative cursor-pointer disabled:cursor-not-allowed transition-all duration-200 border border-transparent focus:band focus:ring-2 focus:ring-offset-2 hover:shadow-none focus:shadow-none",
+    "outline-none inline-flex justify-center items-center relative cursor-pointer disabled:cursor-not-allowed transition-all duration-200 border border-transparent overflow-hidden  focus:ring-2 focus:ring-offset-2 hover:shadow-none focus:shadow-none",
   ],
   {
     variants: {
@@ -37,10 +37,12 @@ const buttonVariants = cva(
           "bg-white-0 hover:border-transparent hover:shadow-none focus:shadow-none",
         lighter: "shadow-none",
         ghost: "shadow-none bg-transparent",
+        fancy:
+          "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white-0/[12%] before:to-transparent after:transition-opacity after:opacity-0 after:absolute after:inset-0 after:bg-gradient-to-b after:from-white-0/[12%] after:to-transparent hover:after:opacity-100 focus:after:opacity-100",
       },
       size: {
         default: [
-          "rounded-[10px] px-[10px] py-[9px] space-x-1 __gap-1 text-label-s",
+          "rounded-[10px] before:rounded-[9px] after:rounded-[9px] px-[10px] py-[9px] space-x-1 __gap-1 text-label-s",
         ],
         small: ["rounded-lg px-[8px] py-[7px] gap-1 text-label-s"],
         "x-small": ["rounded-lg px-[6px] py-[5px] gap-0.5 text-label-s"],
@@ -69,6 +71,11 @@ const buttonVariants = cva(
           "text-primary-base hover:bg-primary-lighter focus:border-primary-base",
       },
       {
+        variant: "primary",
+        modifier: "fancy",
+        className: "hover:bg-primary-base",
+      },
+      {
         variant: "neutral",
         modifier: "stroke",
         className:
@@ -87,6 +94,11 @@ const buttonVariants = cva(
           "bg-transparent text-sub-500 hover:bg-weak-100 hover:text-main-900 focus:border-strong-900 focus:text-main-900",
       },
       {
+        variant: "neutral",
+        modifier: "fancy",
+        className: "hover:bg-surface-700",
+      },
+      {
         variant: "error",
         modifier: "stroke",
         className:
@@ -103,6 +115,11 @@ const buttonVariants = cva(
         modifier: "ghost",
         className:
           "bg-transparent text-red-base hover:bg-red-lighter hover:text-red-base focus:border-red-base",
+      },
+      {
+        variant: "error",
+        modifier: "fancy",
+        className: "hover:bg-red-base",
       },
     ],
     defaultVariants: {
