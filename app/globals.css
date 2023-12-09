@@ -118,6 +118,107 @@
   --state-verified: var(--teal-base);
 }
 
+@layer components {
+  .fancy-button {
+    --fancy-button-color: var(--neutral-700);
+    --fancy-button-color-outline: var(--neutral-200);
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.16) 0%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      hsl(var(--fancy-button-color));
+    box-shadow: 0px 0px 0px 1px hsl(var(--fancy-button-color)),
+      0px 1px 2px 0px rgba(13, 13, 18, 0.4);
+  }
+
+  .fancy-button:disabled {
+    background-color: hsl(var(--neutral-100));
+    box-shadow: hsl(var(--neutral-100));
+  }
+
+  .fancy-button:disabled::after {
+    background-color: hsl(var(--neutral-100));
+    box-shadow: hsl(var(--neutral-100));
+  }
+
+  .fancy-button:disabled > span {
+    color: hsl(var(--neutral-300));
+  }
+
+  .fancy-button:disabled:active span:before {
+    background: none;
+  }
+
+  .fancy-button--blue {
+    --fancy-button-color: var(--blue-base);
+    --fancy-button-color-outline: var(--blue-lighter);
+  }
+
+  .fancy-button--purple {
+    --fancy-button-color: var(--purple-base);
+    --fancy-button-color-outline: var(--purple-lighter);
+  }
+
+  .fancy-button--error {
+    --fancy-button-color: var(--red-base);
+    --fancy-button-color-outline: var(--red-lighter);
+  }
+
+  .fancy-button:focus {
+    box-shadow: 0px 0px 0px 1px hsl(var(--fancy-button-color)), 0 0 0 3px white,
+      0 0 0 5px hsl(var(--fancy-button-color-outline));
+  }
+
+  .fancy-button::before {
+    background: var(
+      --form-button-stroke,
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.16) 16%,
+        rgba(255, 255, 255, 0) 100%
+      )
+    );
+  }
+
+  .fancy-button::after {
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    border-radius: 7px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.09) 0%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      hsl(var(--fancy-button-color));
+    top: 1px;
+    left: 1px;
+  }
+
+  .fancy-button > span:before {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    opacity: 0.07;
+  }
+
+  .fancy-button:hover span:before {
+    opacity: 0.14;
+  }
+
+  .fancy-button:active span:before {
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      hsl(var(--fancy-button-color));
+    opacity: 0.14;
+  }
+}
+
 i {
   line-height: normal;
 }

@@ -129,13 +129,14 @@ const buttonVariants = cva(
   }
 );
 
-type ButtonProps = AriaButtonProps &
-  VariantProps<typeof buttonVariants> & {
-    iconLeft?: RemixiconReactIconComponentType;
-    iconRight?: RemixiconReactIconComponentType;
-    icon?: RemixiconReactIconComponentType;
-    loading?: boolean;
-  };
+export type BaseButtonProps = AriaButtonProps & {
+  iconLeft?: RemixiconReactIconComponentType;
+  iconRight?: RemixiconReactIconComponentType;
+  icon?: RemixiconReactIconComponentType;
+  loading?: boolean;
+};
+
+type ButtonProps = BaseButtonProps & VariantProps<typeof buttonVariants>;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
@@ -202,7 +203,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 
-const IconWrapper = ({
+export const IconWrapper = ({
   children,
   firstChild,
 }: {
