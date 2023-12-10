@@ -201,7 +201,7 @@ const config: Config = {
         "1.5rem",
         {
           lineHeight: "2rem",
-          letterSpacing: "-0.0015",
+          letterSpacing: "-0.0015em",
           fontWeight: "400",
         },
       ],
@@ -209,7 +209,7 @@ const config: Config = {
         "1.125rem",
         {
           lineHeight: "1.5rem",
-          letterSpacing: "-0.0015",
+          letterSpacing: "-0.0015em",
           fontWeight: "400",
         },
       ],
@@ -217,7 +217,7 @@ const config: Config = {
         "1rem",
         {
           lineHeight: "1.5rem",
-          letterSpacing: "-0.0011",
+          letterSpacing: "-0.0011em",
           fontWeight: "400",
         },
       ],
@@ -225,7 +225,7 @@ const config: Config = {
         "0.875rem",
         {
           lineHeight: "1.25rem",
-          letterSpacing: "-0.006",
+          letterSpacing: "-0.006em",
           fontWeight: "400",
         },
       ],
@@ -241,7 +241,7 @@ const config: Config = {
         "1rem",
         {
           lineHeight: "1.5rem",
-          letterSpacing: "-0.006",
+          letterSpacing: "-0.006em",
           fontWeight: "500",
         },
       ],
@@ -249,7 +249,7 @@ const config: Config = {
         "0.875rem",
         {
           lineHeight: "1.25rem",
-          letterSpacing: "-0.006",
+          letterSpacing: "-0.006em",
           fontWeight: "500",
         },
       ],
@@ -257,7 +257,7 @@ const config: Config = {
         "0.75rem",
         {
           lineHeight: "1rem",
-          letterSpacing: "-0.004",
+          letterSpacing: "-0.004em",
           fontWeight: "500",
         },
       ],
@@ -265,7 +265,7 @@ const config: Config = {
         "0.6875rem",
         {
           lineHeight: "0.75rem",
-          letterSpacing: "-0.002",
+          letterSpacing: "-0.002em",
           fontWeight: "500",
         },
       ],

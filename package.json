@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ariakit/react": "^0.3.9",
     "@clerk/nextjs": "^4.27.2",
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.6.0",

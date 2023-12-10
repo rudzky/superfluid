@@ -206,9 +206,11 @@ Button.displayName = "Button";
 export const IconWrapper = ({
   children,
   firstChild,
+  className,
 }: {
   children: ReactNode;
   firstChild?: boolean;
+  className?: string;
 }) => {
   const variants: Variants = {
     visible: {
@@ -229,6 +231,7 @@ export const IconWrapper = ({
       animate={"visible"}
       exit={"hidden"}
       variants={variants}
+      className={className}
     >
       {children}
     </motion.span>
